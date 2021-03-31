@@ -1,8 +1,11 @@
 import rospy
 import numpy as np
 import json 
-from geometry_msgs.msg import Pose
+from geometry_msgs.msg import Pose, Point
 from math import fabs
+from visualization_msgs.msg import Marker
+from visualization_msgs.msg import MarkerArray
+from std_msgs.msg import ColorRGBA
 
 
 class GridMap3D:
@@ -10,9 +13,13 @@ class GridMap3D:
     def __init__(self, map_path, resolution, inflation_radius):
         self.resolution = resolution
         self.unknown_space = -1
+        self.unknown_space_color = ColorRGBA(0.5, 0.5, 0.5, 1)
         self.free_space = 0
+        self.free_space_color = ColorRGBA(0, 1, 0, 1)
         self.c_space = 50
+        self.c_space_color = ColorRGBA(0, 1, 1, 1)
         self.occupied_space = 100
+        self.occupied_space_color = ColorRGBA(1, 0, 0, 1)
         self.inflation_radius_m = inflation_radius 
 
         self.load_map(map_path)
@@ -44,6 +51,7 @@ class GridMap3D:
         self.origin.position.x = self.b_min[0]
         self.origin.position.y = self.b_min[1]
         self.origin.position.z = self.b_min[2]
+        # print("origin: ", self.origin.position.x, self.origin.position.y, self.origin.position.z)
 
         self.inflation_radius_cells = int(self.inflation_radius_m / self.resolution)
 
@@ -145,25 +153,75 @@ class GridMap3D:
             for x in range(start_x_index, stop_x_index + 1):
                 for y in range(start_y_index, stop_y_index + 1):
                     for z in range(start_z_index, stop_z_index + 1):
-                    self.map_data[z, y, x] = self.occupied_space
+                        self.map_data[z, y, x] = self.occupied_space
     
-    # def get_ros_message(self):
-    #     map = OccupancyGrid()
+    def get_ros_message(self):
+        # markerArray = MarkerArray()
+        id = 0
+        marker = Marker()
+        marker.header.frame_id = "map"
+        marker.header.stamp = rospy.Time.now()
+        marker.id = id
+        id += 1
+        # marker.type = marker.CUBE
+        marker.type = marker.CUBE_LIST
+        marker.action = marker.ADD
+        # marker.scale.x = self.resolution
+        # marker.scale.y = self.resolution
+        # marker.scale.z = self.resolution
+        marker.scale.x = 1
+        marker.scale.y = 1
+        marker.scale.z = 1
+        marker.color = self.occupied_space_color
+        marker.pose.orientation.w = 1.0
+        # marker.pose.position.x = x + self.origin.position.x / self.resolution
+        # marker.pose.position.y = y + self.origin.position.y /self.resolution
+        # marker.pose.position.z = z + self.origin.position.z / self.resolution
+        # markerArray.markers.append(marker)
 
-    #     # Fill in the header
-    #     map.header.stamp = rospy.Time.now()
-    #     map.header.frame_id = 'map'
+        for x in range(self.width):
+            for y in range(self.height):
+                for z in range(self.depth):
 
-    #     # Fill in the info
-    #     map.info.resolution = self.resolution
-    #     map.info.width = self.width
-    #     map.info.height = self.height
-    #     map.info.origin = self.origin
+                    if self.map_data[z, y, x] == self.occupied_space:
+                        p = Point()
+                        p.x = x + self.origin.position.x / self.resolution
+                        p.y = y + self.origin.position.y /self.resolution
+                        p.z = z + self.origin.position.z / self.resolution
+                        marker.points.append(p)
+                        marker.colors.append(self.occupied_space_color)
 
-    #     # Fill in the map data
-    #     map.data = self.map_data.reshape(-1) # (self.__map.size)
+                    elif self.map_data[z, y, x] == self.c_space:
+                        p = Point()
+                        p.x = x + self.origin.position.x / self.resolution
+                        p.y = y + self.origin.position.y /self.resolution
+                        p.z = z + self.origin.position.z / self.resolution
+                        marker.points.append(p)
+                        marker.colors.append(self.c_space_color)
 
-    #     return map
+                    # elif self.map_data[z, y, x] == self.c_space:
+                    #     marker = Marker()
+                    #     marker.header.frame_id = "map"
+                    #     marker.header.stamp = rospy.Time.now()
+                    #     marker.id = id
+                    #     id += 1
+                    #     # marker.type = marker.CUBE
+                    #     marker.type = marker.POINT
+                    #     marker.action = marker.ADD
+                    #     marker.scale.x = self.resolution
+                    #     marker.scale.y = self.resolution
+                    #     marker.scale.z = self.resolution
+                    #     # marker.scale.x = 1
+                    #     # marker.scale.y = 1
+                    #     # marker.scale.z = 1
+                    #     marker.color = self.c_space_color
+                    #     marker.pose.orientation.w = 1.0
+                    #     marker.pose.position.x = x + self.origin.position.x / self.resolution
+                    #     marker.pose.position.y = y + self.origin.position.y /self.resolution
+                    #     marker.pose.position.z = z + self.origin.position.z / self.resolution
+                    #     markerArray.markers.append(marker)
+
+        return marker
 
     # # use raytrace from introduction to robotics course 
     # def raytrace(self, start, end):
