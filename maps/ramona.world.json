@@ -1,0 +1,50 @@
+{
+    "airspace": {
+      "min": [-1, -1, 0.0],
+      "max": [ 3,  3, 5.0]
+    },
+  
+    "gate_size": [0.40, 0.40],
+    "marker_size": [0.197, 0.197],
+    "roadsign_size": [0.20, 0.20],
+  
+    "markers": [
+      {"id": 1, "pose": {"position": [0.28, 0.0, 0.4], "orientation": [0, -90.0, 0.0]}},
+      {"id": 2, "pose": {"position": [2.2, 0.89, 0.4],  "orientation": [0.0, -90.0, 90.0]}},
+      {"id": 3, "pose": {"position": [0.99, 0.5, 0.165],  "orientation": [90.0, -90.0, 0.0]}},
+      {"id": 4, "pose": {"position": [1.19, 1.6, 0.4],  "orientation": [90.0, -90.0, 0.0]}}
+    ],
+  
+    "gates": [
+
+    ],
+  
+    "walls": [
+  
+      {"plane": {"start": [0.0,    0.0, 0.0], "stop": [0.0,   1.75, 1.0]}},
+      {"plane": {"start": [0.0,   1.75, 0.0], "stop": [1.2,   1.75, 1.0]}},
+      {"plane": {"start": [1.2,   1.75, 0.0], "stop": [1.2,   1.49, 1.0]}},
+      {"plane": {"start": [1.2,   1.49, 0.0], "stop": [2.2,   1.49, 1.0]}},
+      {"plane": {"start": [2.2,   1.49, 0.0], "stop": [2.2,    0.0, 1.0]}},
+      {"plane": {"start": [2.2,    0.0, 0.0], "stop": [2.13,   0.0, 1.0]}},
+      {"plane": {"start": [2.13,   0.0, 0.0], "stop": [2.13,  0.05, 1.0]}},
+      {"plane": {"start": [2.13,  0.05, 0.0], "stop": [1.53,  0.05, 1.0]}},
+      {"plane": {"start": [1.53,  0.05, 0.0], "stop": [1.53,   0.0, 1.0]}},
+      {"plane": {"start": [1.53,  0.00, 0.0], "stop": [0.0,    0.0, 1.0]}},
+      {"plane": {"start": [1.00,  0.295, 0.0], "stop": [1.0,   0.705, 0.28]}},
+      {"plane": {"start": [1.11,  0.295, 0.0], "stop": [1.11,  0.705, 0.28]}},
+      {"plane": {"start": [1.00,  0.295, 0.0], "stop": [1.11,  0.295, 0.28]}},
+      {"plane": {"start": [1.00,  0.705, 0.0], "stop": [1.11,  0.705, 0.28]}}
+
+  
+    ],
+  
+    "roadsigns": [
+      {"sign": "stop", "pose": {"position": [0.45,  1.74, 0.4], "orientation": [180.0, -90.0, 0.0]}},
+      {"sign": "no_bicycle", "pose": {"position": [1.24,  0.1, 0.4], "orientation": [0.0, -90.0, 0.0]}},
+      {"sign": "residential", "pose": {"position": [1.84,  0.1, 0.4], "orientation": [0.0, -90.0, 0.0]}},
+      {"sign": "roundabout", "pose": {"position": [1.2,  0.1, 0.685], "orientation": [0.0, -90.0, 0.0]}},
+      {"sign": "dangerous_left", "pose": {"position": [0.65,  0.1, 0.275], "orientation": [0.0, -90.0, 0.0]}},
+      {"sign": "narrows_from_left", "pose": {"position": [0.65,  0.1, 0.515], "orientation": [0.0, -90.0, 0.0]}}
+    ]
+  }

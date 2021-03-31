@@ -1,0 +1,58 @@
+{
+
+  "airspace": {
+    "min": [-10, -10, 0.0],
+    "max": [ 10,  10, 5.0]
+  },
+
+  "gate_size": [0.40, 0.40],
+  "marker_size": [0.197, 0.197],
+  "roadsign_size": [0.20, 0.20],
+
+  "markers": [
+    {"id": 0, "pose": {"position": [0.30, 0.0, 0.10], "orientation": [90.0, -90.0, 0.0]}},
+    {"id": 1, "pose": {"position": [-1.5, -1.0, 0.00], "orientation": [90.0, 0.0, 90.0]}},
+    {"id": 2, "pose": {"position": [-1.0, -1.0, 0.00], "orientation": [90.0, 0.0, 90.0]}},
+    {"id": 3, "pose": {"position": [-0.5, -1.0, 0.00], "orientation": [90.0, 0.0, 90.0]}},
+    {"id": 4, "pose": {"position": [0.0,  -1.0, 0.00], "orientation": [90.0, 0.0, 90.0]}},
+    {"id": 5, "pose": {"position": [0.5,  -1.0, 0.00], "orientation": [90.0, 0.0, 90.0]}},
+    {"id": 6, "pose": {"position": [1.0,  -1.0, 0.00], "orientation": [90.0, 0.0, 90.0]}},
+    {"id": 7, "pose": {"position": [1.5,  -1.0, 0.00], "orientation": [90.0, 0.0, 90.0]}},
+    {"id": 8, "pose": {"position": [2.0,  -1.0, 0.00], "orientation": [90.0, 0.0, 90.0]}},
+    {"id": 9, "pose": {"position": [2.5,  -1.0, 0.00], "orientation": [90.0, 0.0, 90.0]}}
+  ],
+
+  "gates": [
+  ],
+
+  "walls": [
+
+    {"plane": {"start": [6.0,  3.0, 0.0], "stop": [5.0,  4.0, 3.0]}},
+    {"plane": {"start": [-5.0, 4.0, 0.0], "stop": [-6.0, 3.0, 3.0]}},
+    {"plane": {"start": [-6.0, -3.0, 0.0], "stop": [-5.0, -4.0, 3.0]}},
+    {"plane": {"start": [5.0, -4.0, 0.0], "stop": [6.0, -3.0, 3.0]}},
+    {"plane": {"start": [2.0, -1.0, 0.0], "stop": [2.0, 1.0, 3.0]}}
+
+  ],
+
+  "roadsigns": [
+    {"sign": "airport",                 "pose": {"position": [-3.5, 1.0, 0.0], "orientation": [90.0, 0.0, 90.0]}},
+    {"sign": "dangerous_curve_left",    "pose": {"position": [-3.0, 1.0, 0.0], "orientation": [90.0, 0.0, 90.0]}},
+    {"sign": "dangerous_curve_right",   "pose": {"position": [-2.5, 1.0, 0.0], "orientation": [90.0, 0.0, 90.0]}},
+    {"sign": "follow_left",             "pose": {"position": [-2.0, 1.0, 0.0], "orientation": [90.0, 0.0, 90.0]}},
+    {"sign": "follow_right",            "pose": {"position": [-1.5, 1.0, 0.0], "orientation": [90.0, 0.0, 90.0]}},
+    {"sign": "junction",                "pose": {"position": [-1.0, 1.0, 0.0], "orientation": [90.0, 0.0, 90.0]}},
+    {"sign": "no_bicycle",              "pose": {"position": [-0.5, 1.0, 0.0], "orientation": [90.0, 0.0, 90.0]}},
+    {"sign": "no_heavy_truck",          "pose": {"position": [0.0,  1.0, 0.0], "orientation": [90.0, 0.0, 90.0]}},
+    {"sign": "no_parking",              "pose": {"position": [0.5,  1.0, 0.0], "orientation": [90.0, 0.0, 90.0]}},
+    {"sign": "no_stopping_and_parking", "pose": {"position": [1.0,  1.0, 0.0], "orientation": [90.0, 0.0, 90.0]}},
+    {"sign": "residential",             "pose": {"position": [1.5,  1.0, 0.0], "orientation": [90.0, 0.0, 90.0]}},
+    {"sign": "road_narrows_from_left",  "pose": {"position": [2.0,  1.0, 0.0], "orientation": [90.0, 0.0, 90.0]}},
+    {"sign": "road_narrows_from_right", "pose": {"position": [2.5,  1.0, 0.0], "orientation": [90.0, 0.0, 90.0]}},
+    {"sign": "roundabout_warning",      "pose": {"position": [3.0,  1.0, 0.0], "orientation": [90.0, 0.0, 90.0]}},
+    {"sign": "stop",                    "pose": {"position": [3.5,  1.0, 0.0], "orientation": [90.0, 0.0, 90.0]}}
+  ]
+
+}
+
+
