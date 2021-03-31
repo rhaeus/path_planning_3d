@@ -17,7 +17,7 @@ class GridMap3D:
         self.free_space = 0
         self.free_space_color = ColorRGBA(0, 1, 0, 1)
         self.c_space = 50
-        self.c_space_color = ColorRGBA(0, 1, 1, 1)
+        self.c_space_color = ColorRGBA(1, 1, 0, 1)
         self.occupied_space = 100
         self.occupied_space_color = ColorRGBA(1, 0, 0, 1)
         self.inflation_radius_m = inflation_radius 
@@ -87,7 +87,7 @@ class GridMap3D:
 
     def grid_index_to_coord(self, index):
         # TODO maybe return cell center
-        return (index[0] * self.resolution + self.b_min[0], index[1] * self.resolution + self.b_min[2], index[2] * self.resolution + self.b_min[2]) 
+        return (index[0] * self.resolution + self.b_min[0], index[1] * self.resolution + self.b_min[1], index[2] * self.resolution + self.b_min[2]) 
     
     def get_flattened_index(self, index):
         return index[0] + self.width * index[1] + self.width * self.height * index[2]
@@ -156,28 +156,16 @@ class GridMap3D:
                         self.map_data[z, y, x] = self.occupied_space
     
     def get_ros_message(self):
-        # markerArray = MarkerArray()
-        id = 0
         marker = Marker()
         marker.header.frame_id = "map"
         marker.header.stamp = rospy.Time.now()
-        marker.id = id
-        id += 1
-        # marker.type = marker.CUBE
         marker.type = marker.CUBE_LIST
         marker.action = marker.ADD
-        # marker.scale.x = self.resolution
-        # marker.scale.y = self.resolution
-        # marker.scale.z = self.resolution
-        marker.scale.x = 1
-        marker.scale.y = 1
-        marker.scale.z = 1
+        marker.scale.x = self.resolution
+        marker.scale.y = self.resolution
+        marker.scale.z = self.resolution
         marker.color = self.occupied_space_color
         marker.pose.orientation.w = 1.0
-        # marker.pose.position.x = x + self.origin.position.x / self.resolution
-        # marker.pose.position.y = y + self.origin.position.y /self.resolution
-        # marker.pose.position.z = z + self.origin.position.z / self.resolution
-        # markerArray.markers.append(marker)
 
         for x in range(self.width):
             for y in range(self.height):
@@ -185,41 +173,15 @@ class GridMap3D:
 
                     if self.map_data[z, y, x] == self.occupied_space:
                         p = Point()
-                        p.x = x + self.origin.position.x / self.resolution
-                        p.y = y + self.origin.position.y /self.resolution
-                        p.z = z + self.origin.position.z / self.resolution
+                        p.x, p.y, p.z = self.grid_index_to_coord((x,y,z))
                         marker.points.append(p)
                         marker.colors.append(self.occupied_space_color)
 
                     elif self.map_data[z, y, x] == self.c_space:
                         p = Point()
-                        p.x = x + self.origin.position.x / self.resolution
-                        p.y = y + self.origin.position.y /self.resolution
-                        p.z = z + self.origin.position.z / self.resolution
+                        p.x, p.y, p.z = self.grid_index_to_coord((x,y,z))
                         marker.points.append(p)
                         marker.colors.append(self.c_space_color)
-
-                    # elif self.map_data[z, y, x] == self.c_space:
-                    #     marker = Marker()
-                    #     marker.header.frame_id = "map"
-                    #     marker.header.stamp = rospy.Time.now()
-                    #     marker.id = id
-                    #     id += 1
-                    #     # marker.type = marker.CUBE
-                    #     marker.type = marker.POINT
-                    #     marker.action = marker.ADD
-                    #     marker.scale.x = self.resolution
-                    #     marker.scale.y = self.resolution
-                    #     marker.scale.z = self.resolution
-                    #     # marker.scale.x = 1
-                    #     # marker.scale.y = 1
-                    #     # marker.scale.z = 1
-                    #     marker.color = self.c_space_color
-                    #     marker.pose.orientation.w = 1.0
-                    #     marker.pose.position.x = x + self.origin.position.x / self.resolution
-                    #     marker.pose.position.y = y + self.origin.position.y /self.resolution
-                    #     marker.pose.position.z = z + self.origin.position.z / self.resolution
-                    #     markerArray.markers.append(marker)
 
         return marker
 
