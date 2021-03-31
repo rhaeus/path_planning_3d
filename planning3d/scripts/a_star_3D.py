@@ -89,37 +89,37 @@ class AStar3D:
             current = current.parent
         return path[::-1] # Return reversed path 
 
-    # def sparsen_path(self, path):
-    #     if len(path) <= 1:
-    #         print("no path found, nothing there to sparsen")
+    def sparsen_path(self, path):
+        if len(path) <= 1:
+            print("no path found, nothing there to sparsen")
 
-    #     new_path = []
-    #     new_path.append(path[0]) # add start point
-    #     last_index_added = 0
+        new_path = []
+        new_path.append(path[0]) # add start point
+        last_index_added = 0
 
-    #     goal_index = len(path) - 1
+        goal_index = len(path) - 1
 
-    #     while last_index_added != goal_index:
-    #         for i in range(last_index_added + 1, len(path)):
-    #             ray = self.grid_map.raytrace(path[last_index_added], path[i])
-    #             # check if obstacle on the way
-    #             blocked = False
-    #             for x, y in ray:
-    #                 if self.grid_map.get_value((x,y)) != self.grid_map.free_space:
-    #                     blocked = True
-    #                     break
+        while last_index_added != goal_index:
+            for i in range(last_index_added + 1, len(path)):
+                ray = self.grid_map.raytrace(path[last_index_added], path[i])
+                # check if obstacle on the way
+                blocked = False
+                for x, y, z in ray:
+                    if self.grid_map.get_value((x,y,z)) != self.grid_map.free_space:
+                        blocked = True
+                        break
 
-    #             if blocked:
-    #                 # if blocked add last waypoint to new path
-    #                 new_path.append(path[i-1])
-    #                 last_index_added = i - 1
-    #             else:
-    #                 # if we are at the last waypoint and its not blocked add goal point
-    #                 if i == len(path) - 1:
-    #                     new_path.append(path[-1])
-    #                     last_index_added = len(path) - 1
+                if blocked:
+                    # if blocked add last waypoint to new path
+                    new_path.append(path[i-1])
+                    last_index_added = i - 1
+                else:
+                    # if we are at the last waypoint and its not blocked add goal point
+                    if i == len(path) - 1:
+                        new_path.append(path[-1])
+                        last_index_added = len(path) - 1
         
-    #     return new_path
+        return new_path
 
 
     def check_location(self, node):

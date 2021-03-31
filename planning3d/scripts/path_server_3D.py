@@ -45,8 +45,8 @@ def plan_path(req):
         print("!no path found!")
     else:
         print("path found")
-        # print("sparsening path...")
-        # path_indices = astar.sparsen_path(path_indices)
+        print("sparsening path...")
+        path_indices = astar.sparsen_path(path_indices)
         # print("sparse path", path_indices)
 
     print("planning done!")
