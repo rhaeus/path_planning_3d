@@ -48,7 +48,7 @@ class GridMap3D:
         self.inflation_radius_cells = int(self.inflation_radius_m / self.resolution)
 
         self.map_data = np.full((self.depth, self.height, self.width), self.free_space, dtype=np.int8)
-        # self.read_walls()
+        self.read_walls()
 
         # self.inflate_map(self.inflation_radius_cells)
 
@@ -112,35 +112,38 @@ class GridMap3D:
         return self.map_data[cell_index[2], cell_index[1], cell_index[0]]
 
 
-    # def read_walls(self):
-    #     walls = self.json_world['walls']
-    #     if len(walls) == 0:
-    #         print("no walls in this map")
-    #         return 
+    def read_walls(self):
+        walls = self.json_world['walls']
+        if len(walls) == 0:
+            print("no walls in this map")
+            return 
         
-    #     for wall in walls:
-    #         # (start_x_coord, start_y_coord) = (wall['plane']['start'][0], wall['plane']['start'][1])
-    #         # (stop_x_coord, stop_y_coord) = (wall['plane']['stop'][0], wall['plane']['stop'][1])
-            
-    #         start_coord = (wall['plane']['start'][0], wall['plane']['start'][1])
-    #         stop_coord = (wall['plane']['stop'][0], wall['plane']['stop'][1])
+        for wall in walls:
+            start_coord = (wall['plane']['start'][0], wall['plane']['start'][1], wall['plane']['start'][2])
+            stop_coord = (wall['plane']['stop'][0], wall['plane']['stop'][1], wall['plane']['stop'][2])
 
-    #         (start_x_index, start_y_index) = self.coord_to_grid_index(start_coord)
-    #         (stop_x_index, stop_y_index) = self.coord_to_grid_index(stop_coord)
+            (start_x_index, start_y_index, start_z_index) = self.coord_to_grid_index(start_coord)
+            (stop_x_index, stop_y_index, stop_z_index) = self.coord_to_grid_index(stop_coord)
 
-    #         if start_x_index > stop_x_index:
-    #             h = stop_x_index
-    #             stop_x_index = start_x_index
-    #             start_x_index = h
+            if start_x_index > stop_x_index:
+                h = stop_x_index
+                stop_x_index = start_x_index
+                start_x_index = h
 
-    #         if start_y_index > stop_y_index:
-    #             h = stop_y_index
-    #             stop_y_index = start_y_index
-    #             start_y_index = h
+            if start_y_index > stop_y_index:
+                h = stop_y_index
+                stop_y_index = start_y_index
+                start_y_index = h
 
-    #         for x in range(start_x_index, stop_x_index + 1):
-    #             for y in range(start_y_index, stop_y_index + 1):
-    #                 self.map_data[y, x] = self.occupied_space
+            if start_z_index > stop_z_index:
+                h = stop_z_index
+                stop_z_index = start_z_index
+                start_z_index = h
+
+            for x in range(start_x_index, stop_x_index + 1):
+                for y in range(start_y_index, stop_y_index + 1):
+                    for z in range(start_z_index, stop_z_index + 1):
+                    self.map_data[z, y, x] = self.occupied_space
     
     # def get_ros_message(self):
     #     map = OccupancyGrid()
