@@ -11,9 +11,9 @@
       <param name="inflation_radius" value="$(arg inflation_radius)"/> 
       </node>
 
-      <!-- <node pkg="planning" type="path_server.py" name="path_server" output="screen">
+      <node pkg="planning3d" type="path_server_3D.py" name="path_server_3D" output="screen">
       <param name="map_file_path" value="$(find maps)/$(arg map_name).world.json"/> 
       <param name="map_resolution" value="$(arg map_resolution)"/> 
       <param name="inflation_radius" value="$(arg inflation_radius)"/> 
-      </node> -->
+      </node>
 </launch>
