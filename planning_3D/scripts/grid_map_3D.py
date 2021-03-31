@@ -50,20 +50,22 @@ class GridMap3D:
         self.map_data = np.full((self.depth, self.height, self.width), self.free_space, dtype=np.int8)
         self.read_walls()
 
-        # self.inflate_map(self.inflation_radius_cells)
+        self.inflate_map(self.inflation_radius_cells)
 
-    # def inflate_map(self, radius):
-    #     for x in range(self.width):
-    #         for y in range(self.height):
-    #             if self.map_data[y, x] == self.occupied_space:
-    #                 for nx in range(x - radius, x + radius + 1):
-    #                     for ny in range(y - radius, y + radius + 1):
-    #                         if not self.is_index_in_range((nx, ny)):
-    #                             continue
-    #                         # d = hypot(x - nx, y - ny)
-    #                         # if d <= radius:
-    #                         if self.map_data[ny, nx] != self.occupied_space:
-    #                             self.map_data[ny, nx] = self.c_space
+    def inflate_map(self, radius):
+        for x in range(self.width):
+            for y in range(self.height):
+                for z in range(self.depth):
+                    if self.map_data[z, y, x] == self.occupied_space:
+                        for nx in range(x - radius, x + radius + 1):
+                            for ny in range(y - radius, y + radius + 1):
+                                for nz in range(z - radius, z + radius + 1):
+                                    if not self.is_index_in_range((nx, ny, nz)):
+                                        continue
+                                    # d = hypot(x - nx, y - ny)
+                                    # if d <= radius:
+                                    if self.map_data[nz, ny, nx] != self.occupied_space:
+                                        self.map_data[nz, ny, nx] = self.c_space
 
     
     def coord_to_grid_index(self, coord):
